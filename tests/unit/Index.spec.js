@@ -1,8 +1,6 @@
-import VueSimpleAuth from '../../src/index'
+import VueSimpleAuth from '../../src'
 import Vue from 'vue'
-
-import { TOKEN_NAMESPACE, TOKEN_EXPIRES_NAMESPACE } from '../../src/index'
-import { Exception } from 'handlebars';
+import { TOKEN_NAMESPACE, TOKEN_EXPIRES_NAMESPACE } from '../../src'
 
 Vue.config.productionTip = false;
 Vue.use(VueSimpleAuth);
