@@ -1,12 +1,12 @@
-import buble from 'rollup-plugin-buble'; // Transpile/polyfill with reasonable browser support
+import buble from 'rollup-plugin-buble'
 
 export default {
-    input: 'src/index.js', // Path relative to package.json
+    input: 'src/index.js',
     output: {
         name: 'vue-auth-session',
         exports: 'named',
     },
     plugins: [
-        buble(), // Transpile to ES5
+        buble(),
     ],
 };
