@@ -1,6 +1,10 @@
 .DS_Store
-node_modules/
-dist/
-tests/unit/coverage/
+node_modules
+tests/unit/coverage
 
 yarn-error.log
+
+.DS_Store
+TODOs.md
+dist/*.gz
+dist/*.map
