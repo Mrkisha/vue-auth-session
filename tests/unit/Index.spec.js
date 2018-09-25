@@ -26,17 +26,12 @@ describe('vue-simple-auth', () => {
   })
 
   it('Retrieves token', () => {
-    Vue.auth.setToken('asd123', 'today')
+    Vue.auth.setToken('asd123')
 
     expect(Vue.auth.getToken()).toEqual('asd123')
   })
 
   it('Returns null if no token saved', () => {
-    expect(Vue.auth.getToken()).toBeNull()
-  })
-
-  it('Return null if token is set but expire date is not set', () => {
-    Vue.auth.setToken('asd')
     expect(Vue.auth.getToken()).toBeNull()
   })
 
@@ -65,7 +60,15 @@ describe('vue-simple-auth', () => {
 
   it("Deletes token if no expiry date", () => {
     Vue.auth.setToken('auth')
+    localStorage.removeItem(TOKEN_EXPIRES_NAMESPACE)
+
     expect(Vue.auth.getToken()).toBeNull()
     expect(localStorage.getItem(TOKEN_NAMESPACE)).toBeNull()
   })
+
+  it("Expiry date is set if non provided", () => {
+    Vue.auth.setToken('auth')
+    expect(Vue.auth.isAuthenticated()).toBe(true)
+  })
+
 })

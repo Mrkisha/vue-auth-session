@@ -5,8 +5,15 @@ function plugin(Vue) {
   Vue.auth = {
     setToken(token, expires_at) {
       localStorage.setItem(TOKEN_NAMESPACE, token)
-      if(undefined !== expires_at) {
-        localStorage.setItem(TOKEN_EXPIRES_NAMESPACE, new Date(expires_at).getTime())
+      // console.log(expires_at)
+
+      if(undefined === expires_at) {
+        let date = new Date()
+        date.setDate(date.getDate() + 5000 )
+        localStorage.setItem(TOKEN_EXPIRES_NAMESPACE, date.getTime())
+      } else {
+        let date = new Date(expires_at)
+        localStorage.setItem(TOKEN_EXPIRES_NAMESPACE, date.getTime())
       }
     },
 
