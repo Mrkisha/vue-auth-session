@@ -71,4 +71,11 @@ describe('vue-simple-auth', () => {
     expect(Vue.auth.isAuthenticated()).toBe(true)
   })
 
+  it("Logout removes token", () => {
+    Vue.auth.setToken('asdff')
+
+    Vue.auth.logout()
+    expect(Vue.auth.isAuthenticated()).toBe(false)
+  })
+
 })

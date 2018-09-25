@@ -34,6 +34,10 @@ function plugin(Vue) {
       localStorage.removeItem(TOKEN_EXPIRES_NAMESPACE)
     },
 
+    logout() {
+      this.destroyToken()
+    },
+
     isAuthenticated() {
       if(this.getToken()) {
         return true
