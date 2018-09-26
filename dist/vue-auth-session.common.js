@@ -9,15 +9,21 @@ function plugin(Vue) {
   Vue.auth = {
     setToken: function setToken(token, expires_at) {
       localStorage.setItem(TOKEN_NAMESPACE, token);
-      // console.log(expires_at)
 
       if(undefined === expires_at) {
         var date = new Date();
         date.setDate(date.getDate() + 5000 );
         localStorage.setItem(TOKEN_EXPIRES_NAMESPACE, date.getTime());
       } else {
-        var date$1 = new Date(expires_at);
-        localStorage.setItem(TOKEN_EXPIRES_NAMESPACE, date$1.getTime());
+        var date$1;
+        if (Number.isInteger(expires_at)) {
+          date$1 = expires_at;
+        } else if (expires_at instanceof Date) {
+          date$1 = expires_at.getTime();
+        } else {
+          date$1 = Date.parse(expires_at);
+        }
+        localStorage.setItem(TOKEN_EXPIRES_NAMESPACE, date$1);
       }
     },
 
@@ -36,6 +42,10 @@ function plugin(Vue) {
     destroyToken: function destroyToken() {
       localStorage.removeItem(TOKEN_NAMESPACE);
       localStorage.removeItem(TOKEN_EXPIRES_NAMESPACE);
+    },
+
+    logout: function logout() {
+      this.destroyToken();
     },
 
     isAuthenticated: function isAuthenticated() {

@@ -1,6 +1,6 @@
 {
   "name": "@mrkisha/vue-auth-session",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Simple vue auth plugin",
   "main": "dist/vue-auth-session.umd.js",
   "module": "dist/vue-auth-session.esm.js",
