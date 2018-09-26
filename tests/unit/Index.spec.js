@@ -35,13 +35,13 @@ describe('vue-simple-auth', () => {
     expect(Vue.auth.getToken()).toBeNull()
   })
 
-  it("Return null if token has expired", () => {
+  it('Return null if token has expired', () => {
     Vue.auth.setToken('asd111', '2018-04-01')
 
     expect(Vue.auth.getToken()).toBeNull()
   })
 
-  it("Destroy tokens", () => {
+  it('Destroy tokens', () => {
     Vue.auth.setToken('dsa', '3000-12-12')
     Vue.auth.destroyToken()
     expect(Vue.auth.getToken()).toBeNull()
@@ -49,16 +49,20 @@ describe('vue-simple-auth', () => {
     expect(localStorage.getItem(TOKEN_EXPIRES_NAMESPACE)).toBeNull()
   })
 
-  it("Is authenticated if token exists", () => {
+  it('Is authenticated if token exists', () => {
     Vue.auth.setToken('auth', '3000-12-12')
+    // console.log(localStorage.getItem(TOKEN_EXPIRES_NAMESPACE))
+    // console.log(localStorage.getItem(TOKEN_NAMESPACE))
+    // console.log(Vue.auth.getToken())
+
     expect(Vue.auth.isAuthenticated()).toEqual(true)
   })
 
-  it("Returns false when no token ", () => {
+  it('Returns false when no token ', () => {
     expect(Vue.auth.isAuthenticated()).toEqual(false)
   })
 
-  it("Deletes token if no expiry date", () => {
+  it('Deletes token if no expiry date', () => {
     Vue.auth.setToken('auth')
     localStorage.removeItem(TOKEN_EXPIRES_NAMESPACE)
 
@@ -66,16 +70,34 @@ describe('vue-simple-auth', () => {
     expect(localStorage.getItem(TOKEN_NAMESPACE)).toBeNull()
   })
 
-  it("Expiry date is set if non provided", () => {
+  it('Expiry date is set if non provided', () => {
     Vue.auth.setToken('auth')
     expect(Vue.auth.isAuthenticated()).toBe(true)
   })
 
-  it("Logout removes token", () => {
+  it('Logout removes token', () => {
     Vue.auth.setToken('asdff')
 
     Vue.auth.logout()
     expect(Vue.auth.isAuthenticated()).toBe(false)
+  })
+
+  it('Set token expiration time when timestamp is passed', () => {
+    Vue.auth.setToken('dddd', 1506427667000) // Tuesday, September 26, 2017 12:07:47 PM
+
+    expect(Number.parseInt(localStorage.getItem(TOKEN_EXPIRES_NAMESPACE))).toEqual(1506427667000)
+  })
+
+  it('Set token expiration by passing Date object', () => {
+    Vue.auth.setToken('dddd', new Date(1506427667000)) // Tuesday, September 26, 2017 12:07:47 PM
+
+    expect(Number.parseInt(localStorage.getItem(TOKEN_EXPIRES_NAMESPACE))).toEqual(1506427667000)
+  })
+
+  it('It fails setting expiration as string', () => {
+    Vue.auth.setToken('dddd', '2017-09-26 12:07:47 GMT')
+
+    expect(Number.parseInt(localStorage.getItem(TOKEN_EXPIRES_NAMESPACE))).toEqual(1506427667000)
   })
 
 })
