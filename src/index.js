@@ -14,6 +14,9 @@ function plugin(Vue) {
         let date
         if (Number.isInteger(expires_at)) {
           date = expires_at
+          if((new Date(date)).getYear() == 70) {
+            throw new TypeError('Timestamp should be in miliseconds format (most likely you need to mutiple your timestamp by 1000)')
+          }
         } else if (expires_at instanceof Date) {
           date = expires_at.getTime()
         } else {

@@ -100,4 +100,9 @@ describe('vue-simple-auth', () => {
     expect(Number.parseInt(localStorage.getItem(TOKEN_EXPIRES_NAMESPACE))).toEqual(1506427667000)
   })
 
+  it('Throws error if timestamp is not in miliseconds format', () => {
+    expect(() => { Vue.auth.setToken('dddd', 1506427667) }).toThrow();
+    expect(() => { Vue.auth.setToken('dddd', 1506427667) }).toThrowError('Timestamp should be in miliseconds format (most likely you need to mutiple your timestamp by 1000)');
+  })
+
 })
